@@ -201,7 +201,33 @@ void test_performanta(const vector<uint32_t>& S) {
     cout << "viteza de criptare: " << viteza_MBps << endl;
 }
 
+void test_vectori_oficiali() {
+    vector<uint8_t> key0(16, 0);
+    uint32_t pt0[4] = {0, 0, 0, 0};
+
+    vector<uint32_t> S = keySchedule(key0);
+    encrypt_block(pt0, S);
+
+    cout << "Test Vector #1:" << endl;
+    cout << "Rezultat obtinut: "; print_block(pt0);
+    cout << "Rezultat asteptat: 36a5c38f 78f7b156 4edf29c1 1ea44898" << endl;
+
+    cout << "---------------------------------------" << endl;
+
+    vector<uint8_t> key2 = {0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, 0x78};
+    uint32_t pt2[4] = {0x35241302, 0x79685746, 0xbdac9b8a, 0xf1e0dfce};
+
+    S = keySchedule(key2);
+    encrypt_block(pt2, S);
+
+    cout << "Test Vector #2:" << endl;
+    cout << "Obtinut:  "; print_block(pt2);
+    cout << "Asteptat: 2f194e52 23c61547 36f6511f 183fa47e" << endl;
+}
+
 int main() {
+    test_vectori_oficiali();
+
     vector<uint8_t> userKey = {0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x10,0x11,0x12,0x13,0x14,0x15,0x16};
     vector<uint32_t> S = keySchedule(userKey);
 
