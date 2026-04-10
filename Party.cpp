@@ -1,10 +1,4 @@
 #include "header.h"
-#include <cryptopp/integer.h>
-#include <cryptopp/osrng.h>
-#include <cryptopp/nbtheory.h>
-
-using namespace std;
-using namespace CryptoPP;
 
 Integer calc(Integer base, Integer exp, Integer module)
 {
@@ -23,91 +17,104 @@ Integer calc(Integer base, Integer exp, Integer module)
     return result;
 }
 
-class Party{
-    Integer private_key;
-    Integer public_key;
-    Integer p, g;
-    Integer shared_secret;
-    int k = 128;
-    vector<uint32_t> S;
+Party::Party()
+{
+    AutoSeededRandomPool rnd;
+    PrimeAndGenerator pg;
+    pg.Generate(1, rnd, k, k - 1);
+    p = pg.Prime();
+    g = pg.Generator();
+    cout << "p: " << p << endl
+         << "g: " << g << endl;
+    createKeys();
+}
 
-public:
-    Party()
-    {
-        AutoSeededRandomPool rnd;
-        PrimeAndGenerator pg;
-        pg.Generate(1, rnd, k, k - 1);
-        p = pg.Prime();
-        g = pg.Generator();
-        cout<<"p: "<<p<<endl<<"g: "<<g<<endl;
-        createKeys();
-    }
+Party::Party(Integer P, Integer G)
+{
+    p = P;
+    g = G;
+    createKeys();
+}
 
-    Party(Integer P, Integer G)
-    {
-        p = P;
-        g = G;
-        createKeys();
-    }
+Integer Party::getP()
+{
+    return p;
+}
+Integer Party::getG()
+{
+    return g;
+}
+Integer Party::sendPublicKey()
+{
+    return public_key;
+}
 
-    Integer getP()
-    {
-        return p;
-    }
-    Integer getG()
-    {
-        return g;
-    }
-    Integer sendPublicKey()
-    {
-        return public_key;
-    }
+void Party::create_shared_secret(Integer key_recived)
+{
+    shared_secret = calc(key_recived, private_key, p);
+    getKeyFromSecret();
+}
 
-    void create_shared_secret(Integer key_recived)
+// void decrypt_file(string& input_path, string& output_path)
+// {
+//     ifstream fin(input_path, ios::binary);
+//     ofstream fout(output_path, ios::binary);
+// }
+
+vector<uint32_t> Party::encrypt_data(vector<uint32_t> data)
+{
+    while (data.size() % 4 != 0)
+        data.push_back(0);
+
+    for (size_t i = 0; i < data.size(); i += 4)
     {
-        shared_secret = calc(key_recived, private_key, p);
-        cout << "Shared secret: " << shared_secret << endl;
-        getKeyFromSecret();
+        uint32_t block[4] = {data[i], data[i + 1], data[i + 2], data[i + 3]};
+        encrypt_block(block, S);
+        for (int j = 0; j < 4; j++)
+        {
+            data[i + j] = block[j];
+        }
     }
+    return data;
+}
 
-    void encrypt(uint32_t Data[4])
+vector<uint32_t> Party::decrypt_data(vector<uint32_t> data)
+{
+
+    for (size_t i = 0; i < data.size(); i += 4)
     {
-        encrypt_block(Data, S);
+        uint32_t block[4] = {data[i], data[i + 1], data[i + 2], data[i + 3]};
+        decrypt_block(block, S);
+        for (int j = 0; j < 4; j++)
+        {
+            data[i + j] = block[j];
+        }
     }
-    void decrypt(uint32_t Data[4])
-    {
-        decrypt_block(Data, S);
-    }
+    return data;
+}
 
+void Party::createKeys()
+{
+    AutoSeededRandomPool rnd;
+    private_key = Integer(rnd, 2, p - 2);
+    public_key = calc(g, private_key, p);
+}
 
-private:
-    void createKeys()
-    {
-        AutoSeededRandomPool rnd;
-        private_key = Integer(rnd, 2, p - 2);
-        public_key = calc(g, private_key, p);
-    }
+void Party::getKeyFromSecret()
+{
+    size_t key_size = k / 8;
+    vector<uint8_t> key(key_size);
+    shared_secret.Encode(key.data(), key_size);
+    S = keySchedule(key);
+}
 
-    void getKeyFromSecret()
-    {
-        size_t key_size = k/8;
-        vector<uint8_t> key(key_size);
-        shared_secret.Encode(key.data(), key_size);
-        S = keySchedule(key);
-    }
-
-};
-
+void print_data(vector<uint32_t> data)
+{
+    for (size_t i = 0; i < data.size(); i++)
+        cout << hex << setw(8) << setfill('0') << data[i] << " ";
+    cout << dec << endl;
+}
 int main()
 {
-    Party a;
-    Party b(a.getP(), a.getG());
-    b.create_shared_secret(a.sendPublicKey());
-    a.create_shared_secret(b.sendPublicKey());
-
-    uint32_t myData[4] = {0xAAAAAAAA, 0xBBBBBBBB, 0xCCCCCCCC, 0xDDDDDDDD};
-    a.encrypt(myData);
-    print_block(myData);
-    b.decrypt(myData);
-    print_block(myData);
+    test_data_received();
 }
