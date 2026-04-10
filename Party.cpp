@@ -68,7 +68,6 @@ public:
         shared_secret = calc(key_recived, private_key, p);
         cout << "Shared secret: " << shared_secret << endl;
         getKeyFromSecret();
-        cout<<"s: "<<S[0]<<" "<<S[1]<<" "<<S[2]<<" "<<S[3]<<endl;;
     }
 
     void encrypt(uint32_t Data[4])
