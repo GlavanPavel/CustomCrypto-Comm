@@ -55,20 +55,26 @@ void Party::create_shared_secret(Integer key_recived)
     getKeyFromSecret();
 }
 
-// void decrypt_file(string& input_path, string& output_path)
-// {
-//     ifstream fin(input_path, ios::binary);
-//     ofstream fout(output_path, ios::binary);
-// }
-
 vector<uint32_t> Party::encrypt_data(vector<uint32_t> data)
 {
     while (data.size() % 4 != 0)
         data.push_back(0);
-
-    for (size_t i = 0; i < data.size(); i += 4)
+    
+    AutoSeededRandomPool rnd;
+    vector<uint32_t> iv(4);
+    for(int i=0; i<4; i++)
     {
-        uint32_t block[4] = {data[i], data[i + 1], data[i + 2], data[i + 3]};
+        iv[i] = (uint32_t)rnd.GenerateWord32();
+    }
+    data.insert(data.begin(),iv.begin(),iv.end());
+
+    for (size_t i = 4; i < data.size(); i += 4)
+    {
+        uint32_t block[4];
+        for(int j=0; j<4; j++)
+        {
+            block[j] = data[i+j] ^ data[i+j-4];
+        }
         encrypt_block(block, S);
         for (int j = 0; j < 4; j++)
         {
@@ -81,15 +87,19 @@ vector<uint32_t> Party::encrypt_data(vector<uint32_t> data)
 vector<uint32_t> Party::decrypt_data(vector<uint32_t> data)
 {
 
-    for (size_t i = 0; i < data.size(); i += 4)
+    vector<uint32_t> prev = {data[0], data[1], data[2], data[3]};
+    for (size_t i = 4; i < data.size(); i += 4)
     {
+        vector<uint32_t> next_prev = {data[i], data[i + 1], data[i + 2], data[i + 3]};
         uint32_t block[4] = {data[i], data[i + 1], data[i + 2], data[i + 3]};
         decrypt_block(block, S);
         for (int j = 0; j < 4; j++)
         {
-            data[i + j] = block[j];
+            data[i + j] = block[j]^prev[j];
         }
+        prev = next_prev;
     }
+    data.erase(data.begin(), data.begin() + 4);
     return data;
 }
 
