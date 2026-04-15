@@ -123,6 +123,7 @@ void test_data_received()
     a.create_shared_secret(b.sendPublicKey());
 for(int i=0;i<2;i++)
 {
+    string message = "Welcome to the party";
     vector<uint32_t> myData = {0xAAAAAAAA, 0xBBBBBBBB, 0xCCCCCCCC, 0xDDDDDDDD, 0xAAAAAAAA, 0xBBBBBBBB, 0xCCCCCCCC, 0xDDDDDDDD};
 
     cout << "Data A wants to send :" << endl;
@@ -136,4 +137,23 @@ for(int i=0;i<2;i++)
     vector<uint32_t> dec = b.decrypt_data(enc);
     print_data(dec);
 }
+}
+
+void test_message()
+{
+    Party a;
+    Party b(a.getP(), a.getG());
+    b.create_shared_secret(a.sendPublicKey());
+    a.create_shared_secret(b.sendPublicKey());
+
+    string message = "Hello!\nWelcome to the party";
+
+    cout << "Data A wants to send :" << endl;
+    cout<<message<<endl;
+    cout << "Data B receives: " << endl;
+    vector<uint32_t> enc = a.encrypt_message(message);
+    print_data(enc);
+    cout << "Data B decrypts" << endl;
+    string dec = b.decrypt_message(enc);
+    cout<<dec<<endl;
 }

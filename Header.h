@@ -43,9 +43,10 @@ public:
     void create_shared_secret(Integer key_recived);
     vector<uint32_t> encrypt_data(vector<uint32_t> data);
     vector<uint32_t> decrypt_data(vector<uint32_t> data);
+    vector<uint32_t> encrypt_message(string message);
+    string decrypt_message(vector<uint32_t> data);
 
-private:
-    void createKeys();
+    private : void createKeys();
     void getKeyFromSecret();
 };
 void print_data(vector<uint32_t> data);
@@ -56,5 +57,6 @@ void test_avalansa(const vector<uint32_t> &S);
 void test_performanta(const vector<uint32_t> &S);
 void test_vectori_oficiali();
 void test_data_received();
+void test_message();
 
 #endif
