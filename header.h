@@ -7,8 +7,17 @@
 #include <vector>
 #include <chrono>
 #include <random>
+#include <thread>
+#include <functional>
 #include <bitset>
 #include <cassert>
+#include <sstream>
+
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
 #include <cryptopp/integer.h>
 #include <cryptopp/osrng.h>
@@ -58,5 +67,14 @@ void test_performanta(const vector<uint32_t> &S);
 void test_vectori_oficiali();
 void test_data_received();
 void test_message();
+
+// network utils
+bool send_all(int sock, const std::string& data);
+std::string receive_all(int sock);
+std::string integer_to_string(const CryptoPP::Integer& num);
+void receive_messages(int sock, Party& party);
+
+std::vector<uint32_t> byte_to_uint32_t(std::vector<uint8_t> data_byte);
+std::vector<uint8_t> uint32_t_to_byte(std::vector<uint32_t> data);
 
 #endif
