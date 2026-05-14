@@ -4,6 +4,14 @@ using namespace std;
 
 
 int main() {    
+    #ifdef _WIN32
+        WSADATA wsaData;
+        if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+            std::cerr << "Eroare la initializarea Winsock" << std::endl;
+            return 1;
+        }
+    #endif
+
     string ip_server;
     cout << "Introdu adresa ip a serverului (enter pentru default): ";
     getline(cin, ip_server);
@@ -55,5 +63,10 @@ int main() {
     }
 
     close(client_socket);
+
+    #ifdef _WIN32
+        WSACleanup();
+    #endif
+
     return 0;
 }

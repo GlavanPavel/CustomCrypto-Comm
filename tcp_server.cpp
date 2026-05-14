@@ -4,6 +4,15 @@ using namespace std;
 
 
 int main() {
+    #ifdef _WIN32
+        WSADATA wsaData;
+        if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+            std::cerr << "Eroare la initializarea Winsock" << std::endl;
+            return 1;
+        }
+    #endif
+
+
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
     int opt = 1;
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
@@ -54,5 +63,11 @@ int main() {
     }
 
     close(server_fd);
+
+
+    #ifdef _WIN32
+        WSACleanup();
+    #endif
+
     return 0;
 }
