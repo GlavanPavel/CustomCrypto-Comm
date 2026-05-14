@@ -34,6 +34,12 @@
 using namespace std;
 using namespace CryptoPP;
 
+// macros for windows
+#ifdef _WIN32
+    #define close closesocket
+#endif
+
+
 //RC6
 void decrypt_block(uint32_t registers[4], const std::vector<uint32_t> &S);
 void encrypt_block(uint32_t registers[4], const std::vector<uint32_t> &S);
