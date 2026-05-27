@@ -14,7 +14,7 @@ private:
     CryptoPP::Integer public_key;
     CryptoPP::Integer p, g;
     CryptoPP::Integer shared_secret;
-    int k = 128;
+    int k = 256;
     std::vector<uint32_t> S;
 
     void createKeys();

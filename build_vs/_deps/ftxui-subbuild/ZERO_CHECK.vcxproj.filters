@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Lisa\Documents\Facultate\An4Sem2\SI\Proiect\CustomCrypto-Comm\build_vs\_deps\ftxui-subbuild\CMakeFiles\7aadcbc038604ab13733248b06bbb319\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{4830E1E3-7191-3889-BFA8-B0A848F73F0C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

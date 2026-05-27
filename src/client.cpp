@@ -4,6 +4,10 @@
 #include <iostream>
 #include <chrono>
 #include <array>
+#include <sstream>
+#include <vector>
+
+using namespace std;
 
 Client::Client(const std::string& ip, const std::string& port, Looper* looper)
     : eventLooper(looper), cryptoContext(nullptr), secureSessionEstablished(false), running(false) {
@@ -20,22 +24,27 @@ Client::Client(const std::string& ip, const std::string& port, Looper* looper)
 
 Client::~Client() {
     running = false;
-    if (inputThread.joinable()) {
-        inputThread.join();
-    }
     eventLooper->removePollable(socketFacade.getFd());
     delete cryptoContext;
 }
 
-void Client::start() {
-    std::cout << "Enter username to register on server:\n> ";
-    std::getline(std::cin, username);
-    
-    // first message registers the nickname on the server
-    socketFacade.sendData(username);
+void Client::sendMessage(const std::string&receiver, const std::string& message)
+{
+    targetPeer = receiver;
+    if(secureSessionEstablished && cryptoContext){
+        vector<uint32_t> encrypted_message = cryptoContext->encrypt_message(message);
+        vector<uint8_t> bytes = uint32_t_to_byte(encrypted_message);
+        string cipherText(bytes.begin(), bytes.end());
+        sendPacket(receiver,cipherText);
+    }else{
+        sendPacket(receiver, message);
+    }
+}
 
+void Client::start(const std::string& user) {
+    username = user;
+    socketFacade.sendData(username);
     running = true;
-    inputThread = std::thread(&Client::runInputLoop, this);
 }
 
 // triggered by the Looper whenever a packet arrives from the server
@@ -45,6 +54,36 @@ void Client::handleEvent(short revents) {
         if (rawData.empty()) {
             std::cout << "\n[System]: Server dropped connection" << std::endl;
             running = false;
+            return;
+        }
+        size_t userListPos = rawData.find("USERLIST:");
+        if (userListPos != std::string::npos)
+        {
+            std::string payload = rawData.substr(userListPos + 9);
+
+            std::vector<std::string> users;
+            std::stringstream ss(payload);
+            std::string user;
+
+            while (std::getline(ss, user, ','))
+            {
+                while (!user.empty() && user.front() == ' ')
+                    user.erase(user.begin());
+
+                while (!user.empty() && user.back() == ' ')
+                    user.pop_back();
+
+                if (!user.empty() && user != username)
+                {
+                    users.push_back(user);
+                }
+            }
+
+            if (onUserListReceived)
+            {
+                onUserListReceived(users);
+            }
+
             return;
         }
 
@@ -98,59 +137,18 @@ void Client::handleEvent(short revents) {
                 std::vector<uint32_t> encrypted_uints = byte_to_uint32_t(bytes);
                 
                 std::string decryptedText = cryptoContext->decrypt_message(encrypted_uints);
-                std::cout << "\n[" << sender << " (Encrypted)]: " << decryptedText << "\n> " << std::flush;
+                if(onMessageReceived){
+                    onMessageReceived(sender,decryptedText);
+                }
             } else {
-                std::cout << "\n[" << sender << " (Unencrypted)]: " << payload << "\n> " << std::flush;
+                if(onMessageReceived){
+                    onMessageReceived(sender,payload);
+                }
             }
         }
     }
 }
 
-void Client::runInputLoop() {
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    
-    std::cout << "\nCommands:\n /connect <user> - Initiate secure key exchange\n <message> - Send a text message\n";
-    
-    while (running) {
-        std::string input;
-        std::cout << "> " << std::flush;
-        std::getline(std::cin, input);
-
-        if (input.empty()) continue;
-
-        if (input.rfind("/connect ", 0) == 0) {
-            targetPeer = input.substr(9);
-            
-            std::cout << "[System]: Generating DH keys and initiating handshake with " << targetPeer << std::endl;
-            
-            CryptoPP::Integer p("1234567890123456789012345678901234567890");
-            CryptoPP::Integer g = 5;
-            cryptoContext = new Party(p, g);
-
-            std::string myKeyStr = integer_to_string(cryptoContext->sendPublicKey());
-            
-            // _INIT so the target peer knows to send their public key back
-            sendPacket(targetPeer, "DH_KEY:" + myKeyStr + "_INIT");
-        } 
-        // message
-        else {
-            if (targetPeer.empty()) {
-                std::cout << "[Error]: Specify a recipient first using: /connect <username>" << std::endl;
-                continue;
-            }
-
-            if (secureSessionEstablished && cryptoContext) {
-                std::vector<uint32_t> encrypted_uints = cryptoContext->encrypt_message(input);
-                std::vector<uint8_t> bytes = uint32_t_to_byte(encrypted_uints);
-                
-                std::string cipherText(bytes.begin(), bytes.end());
-                sendPacket(targetPeer, cipherText);
-            } else {
-                sendPacket(targetPeer, input);
-            }
-        }
-    }
-}
 
 void Client::sendPacket(const std::string& receiver, const std::string& message) {
     auto now = std::chrono::system_clock::now();

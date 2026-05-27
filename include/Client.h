@@ -6,6 +6,7 @@
 #include "Party.h"
 #include <string>
 #include <thread>
+#include <functional>
 
 class Client : public Pollable {
 private:
@@ -17,10 +18,9 @@ private:
     Party* cryptoContext;
     bool secureSessionEstablished;
 
-    std::thread inputThread;
+    // std::thread inputThread;
     bool running;
 
-    void runInputLoop();
     void sendPacket(const std::string& receiver, const std::string& message);
     void getPacketDetails(const std::string& packet, std::array<std::string, 4>& packetDetails);
 
@@ -28,7 +28,10 @@ public:
     Client(const std::string& ip, const std::string& port, Looper* looper);
     virtual ~Client();
 
-    void start();
+    void start(const std::string& user);
+    void sendMessage(const std::string& receiver,const std::string& message);
+    std::function<void(const std::string &, const std::string &)> onMessageReceived;
+    std::function<void(const std::vector<std::string> &)> onUserListReceived;
 
     virtual void handleEvent(short revents) override;
 };

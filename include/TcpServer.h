@@ -30,7 +30,8 @@ private:
 
 public:
     TcpServer(int port, Looper* looper);
-    virtual ~TcpServer();
+    void broadcastUserList();
+     virtual ~TcpServer();
 
     virtual void handleEvent(short revents) override;
 };

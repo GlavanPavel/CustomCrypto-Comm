@@ -1,6 +1,7 @@
 #include "../include/TcpServer.h"
 #include <iostream>
 #include <cstring>
+#include <sstream>
 
 TcpServer::TcpServer(int port, Looper* looper) : eventLooper(looper), serverPort(port) {
     struct addrinfo hints, *res = nullptr;
@@ -111,6 +112,7 @@ void TcpServer::handleClientMessage(SOCKET clientFd) {
         clientRoutingMap[data] = client;
         client->sendData("Registered successfully!");
         std::cout << "[Server]: User registered handle identifier -> " << data << std::endl;
+        broadcastUserList();
         return;
     }
 
@@ -151,6 +153,7 @@ void TcpServer::handleDisconnect(SOCKET clientFd) {
             ++it;
         }
     }
+    broadcastUserList();
     delete obj;
 }
 
@@ -168,4 +171,23 @@ void TcpServer::getPacketDetails(const std::string& packet, std::array<std::stri
     std::string timeStamp = remainingPacket.substr(msgIndex + 1);
 
     packetDetails = {sender, receiver, message, timeStamp};
+}
+
+void TcpServer::broadcastUserList()
+{
+    std::string list = "USERLIST: ";
+
+    bool first = true;
+    for (const auto &pair : clientRoutingMap)
+    {
+        if (!first)
+            list += ",";
+        list += pair.first;
+        first = false;
+    }
+
+    for (const auto &pair : clientRoutingMap)
+    {
+        pair.second->sendData(list);
+    }
 }

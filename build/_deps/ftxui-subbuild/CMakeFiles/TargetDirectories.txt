@@ -1,3 +1,0 @@
-/mnt/c/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build/_deps/ftxui-subbuild/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build/_deps/ftxui-subbuild/CMakeFiles/edit_cache.dir
-/mnt/c/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate.dir

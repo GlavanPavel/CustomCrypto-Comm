@@ -1,0 +1,10 @@
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\7AADCBC038604AB13733248B06BBB319\GENERATE.STAMP.RULE
+setlocal
+C:\Strawberry\c\bin\cmake.exe -SC:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild -BC:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

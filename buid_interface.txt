@@ -1,7 +1,5 @@
-rm -rf build
-mkdir build
-cd build
-cmake ..
-cmake --build .
-cd build
-./interface
+taskkill /IM server.exe /F
+taskkill /IM interface.exe /F
+cmake --build build_vs --config Debug
+build_vs\Debug\server.exe
+build_vs\Debug\interface.exe

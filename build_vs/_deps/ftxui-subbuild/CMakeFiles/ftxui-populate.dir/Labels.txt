@@ -1,0 +1,14 @@
+# Target labels
+ ftxui-populate
+# Source files and their labels
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/7aadcbc038604ab13733248b06bbb319/ftxui-populate.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/01fab9324d45d7352bbe44712b693ea6/ftxui-populate-complete.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/607a2212ab7756c9dad8ea50caf62cfa/ftxui-populate-build.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/607a2212ab7756c9dad8ea50caf62cfa/ftxui-populate-configure.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/607a2212ab7756c9dad8ea50caf62cfa/ftxui-populate-download.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/607a2212ab7756c9dad8ea50caf62cfa/ftxui-populate-install.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/607a2212ab7756c9dad8ea50caf62cfa/ftxui-populate-mkdir.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/607a2212ab7756c9dad8ea50caf62cfa/ftxui-populate-patch.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/607a2212ab7756c9dad8ea50caf62cfa/ftxui-populate-test.rule
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/607a2212ab7756c9dad8ea50caf62cfa/ftxui-populate-update.rule

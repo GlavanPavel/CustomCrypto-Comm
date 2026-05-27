@@ -1,0 +1,10 @@
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\CMAKELISTS.TXT
+setlocal
+C:\Strawberry\c\bin\cmake.exe -SC:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm -BC:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs --check-stamp-file C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

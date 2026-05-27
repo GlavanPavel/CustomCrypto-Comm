@@ -1,0 +1,150 @@
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\607A2212AB7756C9DAD8EA50CAF62CFA\FTXUI-POPULATE-MKDIR.RULE
+setlocal
+C:\Strawberry\c\bin\cmake.exe -Dcfgdir=/Debug -P C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/tmp/ftxui-populate-mkdirs.cmake
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/Debug/ftxui-populate-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\607A2212AB7756C9DAD8EA50CAF62CFA\FTXUI-POPULATE-DOWNLOAD.RULE
+setlocal
+cd C:\Users\Lisa\Documents\Facultate\An4Sem2\SI\Proiect\CustomCrypto-Comm\build_vs\_deps
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -P C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/tmp/ftxui-populate-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/Debug/ftxui-populate-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\607A2212AB7756C9DAD8EA50CAF62CFA\FTXUI-POPULATE-UPDATE.RULE
+setlocal
+cd C:\Users\Lisa\Documents\Facultate\An4Sem2\SI\Proiect\CustomCrypto-Comm\build_vs\_deps\ftxui-src
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -Dcan_fetch=YES -P C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/tmp/ftxui-populate-gitupdate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\607A2212AB7756C9DAD8EA50CAF62CFA\FTXUI-POPULATE-PATCH.RULE
+setlocal
+C:\Strawberry\c\bin\cmake.exe -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/Debug/ftxui-populate-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\607A2212AB7756C9DAD8EA50CAF62CFA\FTXUI-POPULATE-CONFIGURE.RULE
+setlocal
+cd C:\Users\Lisa\Documents\Facultate\An4Sem2\SI\Proiect\CustomCrypto-Comm\build_vs\_deps\ftxui-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/Debug/ftxui-populate-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\607A2212AB7756C9DAD8EA50CAF62CFA\FTXUI-POPULATE-BUILD.RULE
+setlocal
+cd C:\Users\Lisa\Documents\Facultate\An4Sem2\SI\Proiect\CustomCrypto-Comm\build_vs\_deps\ftxui-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/Debug/ftxui-populate-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\607A2212AB7756C9DAD8EA50CAF62CFA\FTXUI-POPULATE-INSTALL.RULE
+setlocal
+cd C:\Users\Lisa\Documents\Facultate\An4Sem2\SI\Proiect\CustomCrypto-Comm\build_vs\_deps\ftxui-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/Debug/ftxui-populate-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\607A2212AB7756C9DAD8EA50CAF62CFA\FTXUI-POPULATE-TEST.RULE
+setlocal
+cd C:\Users\Lisa\Documents\Facultate\An4Sem2\SI\Proiect\CustomCrypto-Comm\build_vs\_deps\ftxui-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/Debug/ftxui-populate-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\01FAB9324D45D7352BBE44712B693EA6\FTXUI-POPULATE-COMPLETE.RULE
+setlocal
+C:\Strawberry\c\bin\cmake.exe -E make_directory C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/Debug/ftxui-populate-complete
+if %errorlevel% neq 0 goto :cmEnd
+C:\Strawberry\c\bin\cmake.exe -E touch C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/ftxui-populate-prefix/src/ftxui-populate-stamp/Debug/ftxui-populate-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKEFILES\7AADCBC038604AB13733248B06BBB319\FTXUI-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\LISA\DOCUMENTS\FACULTATE\AN4SEM2\SI\PROIECT\CUSTOMCRYPTO-COMM\BUILD_VS\_DEPS\FTXUI-SUBBUILD\CMAKELISTS.TXT
+setlocal
+C:\Strawberry\c\bin\cmake.exe -SC:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild -BC:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild --check-stamp-file C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

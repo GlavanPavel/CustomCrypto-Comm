@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Lisa\Documents\Facultate\An4Sem2\SI\Proiect\CustomCrypto-Comm\build_vs\CMakeFiles\448500dccec1d320c6e257409dd644b7\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{93AC7B51-F3F7-3434-A8F6-6860320375DE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

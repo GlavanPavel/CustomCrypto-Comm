@@ -1,3 +1,0 @@
-repository='https://github.com/ArthurSonzogni/FTXUI'
-module=''
-tag='origin'

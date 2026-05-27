@@ -1,0 +1,3 @@
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate.dir
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/ALL_BUILD.dir
+C:/Users/Lisa/Documents/Facultate/An4Sem2/SI/Proiect/CustomCrypto-Comm/build_vs/_deps/ftxui-subbuild/CMakeFiles/ZERO_CHECK.dir

@@ -2,7 +2,7 @@
 #include "../include/RC6.h"
 #include <iostream>
 #include <iomanip>
-
+using namespace std;
 // Standalone mathematical utility function used for modular exponentiation
 CryptoPP::Integer calc(CryptoPP::Integer base, CryptoPP::Integer exp, CryptoPP::Integer module) {
     CryptoPP::Integer result = 1;
@@ -116,9 +116,14 @@ void Party::createKeys() {
 }
 
 void Party::getKeyFromSecret() {
-    size_t key_size = k / 8;
+    size_t key_size = 32;
     std::vector<uint8_t> key(key_size);
-    shared_secret.Encode(key.data(), key_size);
+    size_t secret_size = shared_secret.MinEncodedSize();
+    std::vector<uint8_t> secret(secret_size);
+    shared_secret.Encode(secret.data(), secret_size);
+    CryptoPP::SHA256 hash;
+    hash.Update(secret.data(),secret.size());
+    hash.Final(key.data());
     S = keySchedule(key);
 }
 

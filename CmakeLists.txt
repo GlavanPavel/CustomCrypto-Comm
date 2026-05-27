@@ -1,28 +1,43 @@
 cmake_minimum_required(VERSION 3.14)
 project(interface)
- 
+
 set(CMAKE_CXX_STANDARD 17)
- 
+
 include(FetchContent)
- 
+
 FetchContent_Declare(
   ftxui
   GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI
   GIT_TAG v5.0.0
 )
+
 FetchContent_MakeAvailable(ftxui)
- 
-add_executable(interface 
-interface.cpp
-Party.cpp
-RC6.cpp
-tcp_client.cpp
-tcp_server.cpp
-network_utils.cpp
-Tests.cpp)
- 
-target_link_libraries(interface
-  PRIVATE ftxui::screen
-  PRIVATE ftxui::dom
-  PRIVATE ftxui::component
+
+find_package(cryptopp CONFIG REQUIRED)
+
+add_executable(server
+    tcp_server.cpp
+    src/TcpServer.cpp
+    src/TcpSocket.cpp
+    src/Looper.cpp
+)
+target_link_libraries(server PRIVATE
+    ws2_32
+)
+add_executable(interface
+    interface.cpp
+    src/Party.cpp
+    src/RC6.cpp
+    src/network_utils.cpp
+    src/client.cpp
+    src/Looper.cpp
+    src/TcpSocket.cpp
+)
+
+target_link_libraries(interface PRIVATE
+    ftxui::screen
+    ftxui::dom
+    ftxui::component
+    cryptopp::cryptopp
+    ws2_32
 )
