@@ -1,4 +1,6 @@
 #include "header.h"
+#include <cryptopp/sha.h>
+#include <cryptopp/hkdf.h> 
 
 vector<uint32_t> byte_to_uint32_t(vector<uint8_t> data_byte)
 {
@@ -147,7 +149,7 @@ string Party::decrypt_message(vector<uint32_t> data)
     return message;
 }
 
-    void Party::createKeys()
+void Party::createKeys()
 {
     AutoSeededRandomPool rnd;
     private_key = Integer(rnd, 2, p - 2);
@@ -156,9 +158,20 @@ string Party::decrypt_message(vector<uint32_t> data)
 
 void Party::getKeyFromSecret()
 {
-    size_t key_size = k / 8;
+    size_t key_size = 32;
     vector<uint8_t> key(key_size);
-    shared_secret.Encode(key.data(), key_size);
+    size_t secret_size = shared_secret.MinEncodedSize();
+    vector<uint8_t> secret (secret_size);
+    shared_secret.Encode(secret.data(), secret_size);
+
+    // SHA256 hash;
+    // hash.Update(secret.data(),secret.size());
+    // hash.Final(key.data());
+
+    // HKDF
+    HKDF<SHA256> hkdf;
+    hkdf.DeriveKey( key.data(),key_size,secret.data(),secret.size(), nullptr,0,nullptr,0);
+
     S = keySchedule(key);
 }
 
@@ -171,5 +184,11 @@ void print_data(vector<uint32_t> data)
 
 // int main()
 // {
-//     test_message();
+//     // test_message();
+//     Party A, B(A.getP(), A.getG()), C(A.getP(), A.getG());
+//     A.create_shared_secret(B.sendPublicKey());
+//     Integer s1 = A.shared_secret;
+//     A.create_shared_secret(C.sendPublicKey());
+//     cout<<s1<<endl<<A.shared_secret;
+//     return 0;
 // }

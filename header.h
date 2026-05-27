@@ -38,11 +38,11 @@ class Party
     Integer private_key;
     Integer public_key;
     Integer p, g;
-    Integer shared_secret;
-    int k = 128;
+    int k = 256;
     vector<uint32_t> S;
 
 public:
+    Integer shared_secret;
     Party();
     Party(Integer P, Integer G);
 
@@ -77,4 +77,43 @@ void receive_messages(int sock, Party& party);
 std::vector<uint32_t> byte_to_uint32_t(std::vector<uint8_t> data_byte);
 std::vector<uint8_t> uint32_t_to_byte(std::vector<uint32_t> data);
 
+
+class Client {
+public:
+    bool Connect(const string& ip,
+                 int port,
+                 const string& username){};
+
+    void Disconnect();
+
+    void SendMessage(const string& to,
+                     const string& text){};
+
+    void SendFile(const string& to,
+                  const string& path){};
+
+    vector<string> GetUsers(){return{};};
+
+    vector<Message> GetNewMessages(){return {};};
+};
+
+struct Message{
+    string from;
+    string text;
+    string to;
+};
+
+struct AppState{
+    string server_ip = "localhost";
+    string server_port = "9000";
+    string username = "";
+    bool connected = false;
+    string connection_status = "Neconectat";
+
+    int selected_user = 0;
+    string message = "";
+    string file = "";
+    vector<Message> messages;
+    vector<string> users;
+};
 #endif

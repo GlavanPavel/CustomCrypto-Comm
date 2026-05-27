@@ -41,7 +41,7 @@ int main() {
 
     cout << "\nPoti incepe sa scrii mesaje:\n> ";
     while (true) {
-        string msg;
+        string msg;4
         getline(cin, msg);
         if (!msg.empty()) {
             vector<uint32_t> encrypted_uints = my_party.encrypt_message(msg);
