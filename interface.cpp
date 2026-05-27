@@ -77,6 +77,13 @@ int main(){
                 state.messages.push_back({ from, text, state.username});
                 screen.PostEvent(Event::Custom);
             };
+            // client->onFileReceived = [&](const string &from, const string &fileName)
+            // {
+            //     lock_guard<mutex> lk2(state_mutex);
+            //     add_user_if_missing(state.users, from, state.username);
+            //     state.messages.push_back({from, "Fisier primit", state.username});
+            //     screen.PostEvent(Event::Custom);
+            // };
             client->onUserListReceived = [&](const vector<string>& users){
                 lock_guard<mutex> lk2(state_mutex);
                 state.users = users;
@@ -103,17 +110,6 @@ int main(){
         screen.ExitLoopClosure()();
     });
 
-    auto file_input = Input(&state.file_path, "");
-    auto btn_send_file = Button("Trimite fisier",[&]{
-        if(state.file_path.empty())
-            return;
-        lock_guard<mutex> lk(state_mutex);
-        if(state.users.empty())
-            return;
-        string target = state.users[state.selected_user];
-        
-    });
-
     auto users_menu = Menu(&state.users, &state.selected_user);
     auto message_input = Input(&state.message, "Scrie mesaj");
     auto btn_send_message = Button("Trimite mesaj", [&]
@@ -135,10 +131,39 @@ int main(){
             state.selected_user = 0;
 
         string target = state.users[state.selected_user];
+        auto start = chrono::high_resolution_clock::now();
         client->sendMessage(target,state.message);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        auto stop = chrono::high_resolution_clock::now();
+        auto us = chrono::duration_cast<chrono::microseconds>(stop-start).count();
+        state.connection_status = "Trimis in "+to_string(us)+" ms";
         state.messages.push_back({state.username,state.message,target});
         state.message.clear();
+    });
+
+        auto file_input = Input(&state.file_path, "");
+    auto btn_send_file = Button("Trimite fisier",[&]{
+        lock_guard<mutex> lk(state_mutex);
+        if(!client){
+            state.connection_status = "Conecteaza-te mai intai";
+            return;
+        }
+        if(state.message.empty()){
+            state.connection_status = "Alege destinatar";
+            return;
+        }
+        if(state.message.empty())
+        {
+            return;
+        }
+        if (state.selected_user >= (int)state.users.size())
+            state.selected_user = 0;
+
+        string target = state.users[state.selected_user];
+        //client->sendFile(target,state.file_path);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        state.messages.push_back({state.username, "A trimis un fisier.", target});
+        state.file_path.clear();
+        
     });
 
     auto server_container = Container::Horizontal({

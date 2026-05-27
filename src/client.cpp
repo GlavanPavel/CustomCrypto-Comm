@@ -30,6 +30,7 @@ Client::~Client() {
 
 void Client::sendMessage(const std::string&receiver, const std::string& message)
 {
+
     targetPeer = receiver;
     if(secureSessionEstablished && cryptoContext){
         vector<uint32_t> encrypted_message = cryptoContext->encrypt_message(message);
@@ -99,6 +100,9 @@ void Client::handleEvent(short revents) {
 
         std::string sender = packetDetails[0];
         std::string payload = packetDetails[2];
+        long long sent = stoll(packetDetails[3]);
+        long long now = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
+        long long latency = now - sent;
 
         // Diffie-Hellman public key payload exchange
         if (payload.rfind("DH_KEY:", 0) == 0) {
@@ -142,6 +146,7 @@ void Client::handleEvent(short revents) {
                 }
             } else {
                 if(onMessageReceived){
+                    payload +=" ["+to_string(latency)+" ms]";
                     onMessageReceived(sender,payload);
                 }
             }
@@ -151,12 +156,9 @@ void Client::handleEvent(short revents) {
 
 
 void Client::sendPacket(const std::string& receiver, const std::string& message) {
-    auto now = std::chrono::system_clock::now();
-    auto time_t_now = std::chrono::system_clock::to_time_t(now);
-    std::string timeStamp = std::ctime(&time_t_now);
-    if (!timeStamp.empty()) timeStamp.pop_back();
+    auto now = chrono::duration_cast<chrono::microseconds>(chrono::system_clock::now().time_since_epoch()).count();
 
-    std::string fullPacket = username + "|" + receiver + "|" + message + "|" + timeStamp;
+    std::string fullPacket = username + "|" + receiver + "|" + message + "|" + std::to_string(now);
     socketFacade.sendData(fullPacket);
 }
 
